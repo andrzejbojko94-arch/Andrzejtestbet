@@ -66,7 +66,7 @@ def analyse(matches: List[Dict]) -> Dict[str, Any]:
 
     try:
         completion = client.chat.completions.create(
-            model="llama-3.3-70b-versatile",  # solid free model on Groq
+            model="openai/gpt-oss-120b",  # aktualny darmowy model na Groq
             messages=[
                 {"role": "system", "content": SYSTEM_PROMPT},
                 {"role": "user", "content": user_prompt},
