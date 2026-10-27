@@ -17,6 +17,7 @@ WARSAW = pytz.timezone("Europe/Warsaw")
 # Competitions we care about (football-data.org free tier codes)
 # https://www.football-data.org/documentation/api
 COMPETITIONS = [
+    # Główne (lepsza jakość)
     "PL",   # Premier League
     "PD",   # La Liga
     "BL1",  # Bundesliga
@@ -27,6 +28,12 @@ COMPETITIONS = [
     "DED",  # Eredivisie
     "PPL",  # Primeira Liga
     "ELC",  # Championship
+
+    # Inne ligi (słabsza jakość danych)
+    "BSA",  # Brasileirão
+    "MLS",  # MLS
+    "SPL",  # Scottish Premiership
+    "CLI",  # Copa Libertadores (jeśli dostępne)
 ]
 
 # Odds range for main list
