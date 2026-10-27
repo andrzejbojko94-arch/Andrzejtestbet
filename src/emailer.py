@@ -29,13 +29,14 @@ def format_tip(tip: Dict, idx: int) -> str:
 
 def build_email_body(analysis: Dict[str, Any], matches_count: int) -> str:
     today = datetime.now(WARSAW).strftime("%d.%m.%Y")
-    main_tips: List = analysis.get("main_tips", [])
-    value_tips: List = analysis.get("value_tips", [])
+    main_tips = analysis.get("main_tips", [])
+    value_tips = analysis.get("value_tips", [])
+    other_tips = analysis.get("other_leagues_tips", [])
     summary = analysis.get("summary", "")
 
     body = []
     body.append(f"Codzienne typy Superbet – {today}")
-    body.append("=" * 50)
+    body.append("=" * 55)
     body.append(f"Przeanalizowano meczów: {matches_count}")
     body.append("")
 
@@ -44,30 +45,41 @@ def build_email_body(analysis: Dict[str, Any], matches_count: int) -> str:
         body.append(summary)
         body.append("")
 
-    body.append("-" * 50)
-    body.append("15 NAJLEPSZYCH TYPÓW (kursy 1.70 – 2.30)")
-    body.append("-" * 50)
+    body.append("-" * 55)
+    body.append("15 NAJLEPSZYCH TYPÓW – LIGI GŁÓWNE (1.70 – 2.30)")
+    body.append("-" * 55)
     if main_tips:
         for i, tip in enumerate(main_tips, 1):
             body.append(format_tip(tip, i))
     else:
-        body.append("Brak wygenerowanych typów w tym przedziale.")
+        body.append("Brak typów.")
     body.append("")
 
-    body.append("-" * 50)
+    body.append("-" * 55)
     body.append("5 TYPÓW VALUE (kurs >= 3.00)")
-    body.append("-" * 50)
+    body.append("-" * 55)
     if value_tips:
         for i, tip in enumerate(value_tips, 1):
             body.append(format_tip(tip, i))
     else:
-        body.append("Brak wygenerowanych typów value.")
+        body.append("Brak typów value.")
     body.append("")
 
-    body.append("=" * 50)
+    body.append("-" * 55)
+    body.append("15 TYPÓW – INNE LIGI (niższa jakość analizy)")
+    body.append("-" * 55)
+    if other_tips:
+        for i, tip in enumerate(other_tips, 1):
+            body.append(format_tip(tip, i))
+    else:
+        body.append("Brak meczów z innych lig lub brak typów.")
+    body.append("")
+
+    body.append("=" * 55)
     body.append("UWAGI:")
-    body.append("- Kursy są szacunkowe / orientacyjne. Zawsze sprawdź aktualną ofertę na Superbet.pl")
-    body.append("- To analiza automatyczna oparta o darmowe dane + LLM. Nie stanowi porady inwestycyjnej.")
+    body.append("- Kursy są szacunkowe. Zawsze sprawdzaj aktualną ofertę na Superbet.pl")
+    body.append("- Typy z innych lig mają niższą wiarygodność.")
+    body.append("- To automatyczna analiza. Nie stanowi porady inwestycyjnej.")
     body.append("- Graj odpowiedzialnie.")
     body.append("")
     body.append("Agent wygenerowany automatycznie.")
